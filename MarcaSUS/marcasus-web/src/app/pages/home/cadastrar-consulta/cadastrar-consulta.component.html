@@ -1,0 +1,33 @@
+<app-header>
+  <mat-form-field style="width: 100%">
+    <mat-label>Selecione um paciente</mat-label>
+    <mat-select (selectionChange)="pessoaSelecionada$.next($event.value)">
+      <mat-option *ngFor="let medico of pessoas$ | async" [value]="medico"
+        >{{ medico.nome }} - CPF {{ medico.cpf }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Selecione um horário</mat-label>
+    <mat-select
+      (selectionChange)="horarioSelecionado = $event.value"
+      [disabled]="!(horarios$ | async)"
+    >
+      <mat-option *ngFor="let horario of horarios$ | async" [value]="horario"
+        >{{ horario.horario }} - {{ horario.medico.nome }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    [disabled]="!pessoaSelecionada || !horarioSelecionado"
+    mat-flat-button
+    color="basic"
+    (click)="salvar()"
+    style="width: 100%"
+  >
+    Agendar
+  </button>
+</app-header>
+<ngx-spinner type="ball-clip-rotate"></ngx-spinner>

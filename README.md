@@ -1,0 +1,3 @@
+O  MarcaSUS foi idealizado durante um Hackathon, ou maratona de programação, que durou 2 dias e teve como desafio “Desenvolver Soluções Inovadoras para Ampliar o Acesso da População a Serviços Essenciais”. Inspirada por esse tema, a equipe focou na área da saúde pública e concebeu um sistema voltado para a marcação e desmarcação de consultas nas Unidades Básicas de Saúde (UBS) através do Sistema Único de Saúde (SUS).
+
+O trabalho será utilizado como Trabalho de Conclusão de Curso apresentado ao Curso Tecnologia em Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte, em cumprimento às exigências legais como requisito parcial à obtenção do título de Bacharel.

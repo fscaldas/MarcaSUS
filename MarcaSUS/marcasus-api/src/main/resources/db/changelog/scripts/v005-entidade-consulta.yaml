@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: v005-1-sequence-consulta
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createSequence:
+            sequenceName: seq_consulta
+  - changeSet:
+      id: v005-2-tabela-consulta
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createTable:
+            tableName: consulta
+            columns:
+              - column:
+                  name: id_consulta
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: cpf
+                  type: VARCHAR(50)
+                  constraints:
+                    foreignKeyName: fk_consulta_pessoa
+                    referencedTableName: pessoa
+                    referencedColumnNames: cpf
+              - column:
+                  name: id_agenda
+                  type: INTEGER
+                  constraints:
+                    foreignKeyName: fk_consulta_agenda
+                    referencedTableName: agenda
+                    referencedColumnNames: id_agenda
+  - changeSet:
+      id: v002-3-dados-consulta
+      author: Marcos Junior
+      context: consulta
+      changes:
+        - loadData:
+            file: ../dados/consulta.csv
+            relativeToChangelogFile: true
+            tableName: consulta
+        - sql:
+            dbms: h2
+            sql: alter sequence seq_consulta restart with (select coalesce(max(id_consulta), 0) + 1 from consulta)

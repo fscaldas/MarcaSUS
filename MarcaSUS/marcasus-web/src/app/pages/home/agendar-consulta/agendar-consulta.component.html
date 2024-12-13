@@ -1,0 +1,70 @@
+<app-header>
+  <mat-form-field style="width: 100%">
+    <mat-label>Selecione um médico</mat-label>
+    <mat-select (selectionChange)="medicoSelecionado$.next($event.value)">
+      <mat-option *ngFor="let medico of medicos$ | async" [value]="medico"
+        >{{ medico.nome }} - CRM {{ medico.crm }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="medicoSelecionado$ | async" style="position: relative">
+    <div style="display: flex; gap: 1em; margin-bottom: 1em">
+      <button
+        [disabled]="buttonDisabled"
+        mat-flat-button
+        color="warn"
+        (click)="refreshDate(-7)"
+      >
+        Voltar
+      </button>
+      <button mat-flat-button color="primary" (click)="refreshDate(7)">
+        Avançar
+      </button>
+
+      <button
+        mat-flat-button
+        [matMenuTriggerFor]="menu"
+        #menuTrigger
+        color="accent"
+        class="button-calendar"
+      >
+        <mat-icon style="margin: 0">date_range</mat-icon>
+      </button>
+      <button
+        mat-flat-button
+        [matMenuTriggerFor]="menu"
+        #menuTrigger
+        color="basic"
+        (click)="salvar()"
+        *ngIf="dirty"
+      >
+        Salvar
+      </button>
+      <mat-menu #menu="matMenu">
+        <mat-calendar
+          [lang]="'pt-BR'"
+          (click)="$event.stopPropagation()"
+          style="width: 250px"
+          [minDate]="today"
+          [selected]="viewDate"
+          (selectedChange)="viewDate = $event"
+        ></mat-calendar>
+      </mat-menu>
+    </div>
+
+    <mwl-calendar-week-view
+      [viewDate]="viewDate"
+      [events]="events"
+      [hourDuration]="15"
+      [hourSegments]="1"
+      [refresh]="refresh"
+      [dayStartHour]="8"
+      [dayEndHour]="18"
+      (hourSegmentClicked)="hourSegmentClicked($event)"
+      (eventClicked)="eventClicked($event)"
+    >
+    </mwl-calendar-week-view>
+  </div>
+</app-header>
+<ngx-spinner type="ball-clip-rotate"></ngx-spinner>

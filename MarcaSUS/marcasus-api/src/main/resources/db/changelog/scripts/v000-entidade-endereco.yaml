@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: v000-1-tabela-endereco
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createTable:
+            tableName: endereco
+            columns:
+              - column:
+                  name: id_endereco
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: bairro
+                  type: VARCHAR(100)
+  - changeSet:
+      id: v001-2-dados-endereco
+      author: Marcos Junior
+      context: endereco,pessoa,posto,consulta
+      changes:
+        - loadData:
+            file: ../dados/endereco.csv
+            relativeToChangelogFile: true
+            tableName: endereco

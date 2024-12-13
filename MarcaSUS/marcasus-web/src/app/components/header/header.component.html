@@ -1,0 +1,27 @@
+<div>
+  <div class="header">
+    <button mat-button (click)="logout()">
+      Sair
+      <mat-icon iconPositionEnd>logout</mat-icon>
+    </button>
+  </div>
+  <div class="body">
+    <div class="sidemenu">
+      <mat-nav-list style="padding-top: 0">
+        <mat-list-item
+          [disabled]="link.disabled"
+          *ngFor="let link of links"
+          [routerLink]="link.url"
+          routerLinkActive="mdc-list-item--activated"
+        >
+          <a matListItemTitle>{{ link.desc }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div class="content">
+      <div style="padding: 1em">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

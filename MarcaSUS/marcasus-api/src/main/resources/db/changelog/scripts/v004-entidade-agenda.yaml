@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: v004-1-sequence-agenda
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createSequence:
+            sequenceName: seq_agenda
+  - changeSet:
+      id: v004-2-tabela-agenda
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createTable:
+            tableName: agenda
+            columns:
+              - column:
+                  name: id_agenda
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: crm
+                  type: VARCHAR(50)
+                  constraints:
+                    foreignKeyName: fk_agenda_medico
+                    referencedTableName: medico
+                    referencedColumnNames: crm
+              - column:
+                  name: id_posto
+                  type: INTEGER
+                  constraints:
+                    foreignKeyName: fk_agenda_posto
+                    referencedTableName: posto
+                    referencedColumnNames: id_posto
+              - column:
+                  name: horario
+                  type: TIMESTAMP
+  - changeSet:
+      id: v002-3-dados-agenda
+      author: Marcos Junior
+      context: agenda,consulta
+      changes:
+        - loadData:
+            file: ../dados/agenda.csv
+            relativeToChangelogFile: true
+            tableName: agenda
+        - sql:
+            dbms: h2
+            sql: alter sequence seq_agenda restart with (select coalesce(max(id_agenda), 0) + 1 from agenda)

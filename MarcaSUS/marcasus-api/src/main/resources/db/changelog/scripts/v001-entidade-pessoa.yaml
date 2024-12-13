@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: v001-1-tabela-pessoa
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createTable:
+            tableName: pessoa
+            columns:
+              - column:
+                  name: cpf
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: id_endereco
+                  type: INTEGER
+                  constraints:
+                    foreignKeyName: fk_pessoa_endereco
+                    referencedTableName: endereco
+                    referencedColumnNames: id_endereco
+              - column:
+                  name: nome
+                  type: VARCHAR(100)
+  - changeSet:
+      id: v001-2-dados-pessoa
+      author: Marcos Junior
+      context: pessoa,consulta
+      changes:
+        - loadData:
+            file: ../dados/pessoa.csv
+            relativeToChangelogFile: true
+            tableName: pessoa

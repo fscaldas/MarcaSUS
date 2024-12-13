@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: v003-1-sequence-posto
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createSequence:
+            sequenceName: seq_posto
+  - changeSet:
+      id: v003-2-tabela-posto
+      author: Marcos Junior
+      context: ddl
+      changes:
+        - createTable:
+            tableName: posto
+            columns:
+              - column:
+                  name: id_posto
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: id_endereco
+                  type: INTEGER
+                  constraints:
+                    foreignKeyName: fk_posto_endereco
+                    referencedTableName: endereco
+                    referencedColumnNames: id_endereco
+              - column:
+                  name: nome
+                  type: VARCHAR(100)
+  - changeSet:
+      id: v002-3-dados-posto
+      author: Marcos Junior
+      context: posto,agenda,consulta
+      changes:
+        - loadData:
+            file: ../dados/posto.csv
+            relativeToChangelogFile: true
+            tableName: posto

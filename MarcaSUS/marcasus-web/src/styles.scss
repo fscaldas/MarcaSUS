@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  padding: 1.5em;
+  border-radius: 8px;
+  &.mat-primary {
+    &:not([disabled]) {
+      background-color: #44a1f2;
+    }
+  }
+  &.mat-basic {
+    &:not([disabled]) {
+      color: white;
+      background-color: #32c194;
+    }
+  }
+}
